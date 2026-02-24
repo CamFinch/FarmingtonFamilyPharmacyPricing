@@ -83,7 +83,7 @@ app.get("/search", async (req, res) => {
     }
 
     const searchUrl =
-      `${BASE_URL}/Drug/SearchDrug?search=${encodeURIComponent(search)}&pageSize=50&pageIndex=0`;
+      `${BASE_URL}/Drug/SearchDrug?search=${encodeURIComponent(search)}&pageSize=100&pageIndex=0`;
 
     const response = await apiFetch(searchUrl);
 
