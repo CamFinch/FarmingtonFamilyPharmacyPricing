@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -30,7 +30,7 @@ body {
 .header h1 {
   margin: 0;
   color: #2C0E8A;
-  font-size: 22px;
+  font-size: 28px;
   font-weight: 600;
 }
 
@@ -40,7 +40,6 @@ body {
   font-size: 14px;
 }
 
-/* Inputs */
 input {
   width: 100%;
   padding: 14px;
@@ -56,7 +55,6 @@ input:focus {
   box-shadow: 0 0 0 3px rgba(70,192,198,0.2);
 }
 
-/* Main Button */
 button.main-btn {
   width: 100%;
   padding: 14px;
@@ -74,7 +72,6 @@ button.main-btn:hover {
   background: #1f0863;
 }
 
-/* Drug List */
 .drug-list {
   margin-top: 5px;
   border-top: 1px solid #eee;
@@ -93,7 +90,6 @@ button.main-btn:hover {
   background: #f8f9ff;
 }
 
-/* Pagination */
 .pagination {
   display: flex;
   justify-content: space-between;
@@ -118,7 +114,6 @@ button.main-btn:hover {
   cursor: not-allowed;
 }
 
-/* Fade Animation */
 .fade-enter {
   opacity: 0;
   transform: translateY(8px);
@@ -141,7 +136,6 @@ button.main-btn:hover {
   transition: opacity 200ms ease, transform 200ms ease;
 }
 
-/* Spinner */
 .spinner {
   border: 4px solid #f3f3f3;
   border-top: 4px solid #2C0E8A;
@@ -157,7 +151,6 @@ button.main-btn:hover {
   100% { transform: rotate(360deg); }
 }
 
-/* Result Card */
 .result-card {
   margin-top: 25px;
   padding: 22px;
@@ -173,7 +166,6 @@ button.main-btn:hover {
   margin-top: 10px;
 }
 
-/* Error */
 .error {
   color: #b91c1c;
   background: #fee2e2;
@@ -221,7 +213,6 @@ let allDrugs = [];
 let currentPage = 1;
 const pageSize = 5;
 
-/* Format Currency */
 function formatCurrency(value) {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -229,7 +220,6 @@ function formatCurrency(value) {
   }).format(value);
 }
 
-/* SEARCH */
 document.getElementById("drugName").addEventListener("input", function () {
 
   selectedDrugId = null;
@@ -252,11 +242,19 @@ document.getElementById("drugName").addEventListener("input", function () {
         if (!Array.isArray(data)) return;
 
         const seen = new Set();
-        allDrugs = data.filter(drug => {
-          if (seen.has(drug.name)) return false;
-          seen.add(drug.name);
-          return true;
-        });
+
+        allDrugs = data
+          .filter(drug => {
+            if ((drug.controlledSchedule ?? 0) >= 2) return false;
+            if (drug.isOTC === true) return false;
+            return true;
+          })
+          .filter(drug => {
+            const key = `${drug.name}-${drug.dosageForm}-${drug.doseForm}`;
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+          });
 
         currentPage = 1;
         renderPage();
@@ -264,8 +262,8 @@ document.getElementById("drugName").addEventListener("input", function () {
   }, 400);
 });
 
-/* RENDER PAGE WITH FADE */
 function renderPage() {
+
   const resultsDiv = document.getElementById("searchResults");
   const paginationDiv = document.getElementById("pagination");
 
@@ -297,7 +295,7 @@ function renderPage() {
       resultsDiv.appendChild(item);
     });
 
-    resultsDiv.classList.remove("fade-exit", "fade-exit-active");
+    resultsDiv.classList.remove("fade-exit","fade-exit-active");
 
     resultsDiv.classList.add("fade-enter");
     requestAnimationFrame(() => {
@@ -305,10 +303,10 @@ function renderPage() {
     });
 
     setTimeout(() => {
-      resultsDiv.classList.remove("fade-enter", "fade-enter-active");
-    }, 250);
+      resultsDiv.classList.remove("fade-enter","fade-enter-active");
+    },250);
 
-  }, 200);
+  },200);
 
   paginationDiv.innerHTML = "";
 
@@ -326,8 +324,8 @@ function changePage(direction) {
   renderPage();
 }
 
-/* CALCULATE */
 async function calculateUAC() {
+
   const qty = document.getElementById("drugQty").value;
   const days = document.getElementById("daySupply").value;
   const resultsDiv = document.getElementById("results");
