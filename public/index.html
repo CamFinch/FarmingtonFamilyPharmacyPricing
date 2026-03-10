@@ -3,23 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Farmington Family Pharmacy</title>
+
+<title>Farmington Family Pharmacy Pricing Tool</title>
 
 <style>
-* { box-sizing: border-box; }
+
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
   font-family: "Segoe UI", sans-serif;
-  background: transparent;
   color: #1e293b;
+
+  background: linear-gradient(
+    135deg,
+    #f5f7ff 0%,
+    #ffffff 50%,
+    #e8fbfb 100%
+  );
+
+  min-height: 100vh;
 }
 
 .container {
   width: 100%;
   max-width: 520px;
   margin: 80px auto;
-  padding: 50px 28px;
+  padding: 55px 32px 45px 32px;
 
   background: white;
   border-radius: 14px;
@@ -33,58 +45,70 @@ body {
 
 .header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
-.header h1 {
-  margin: 0;
+.main-title {
+  font-size: 34px;
+  font-weight: 700;
   color: #2C0E8A;
-  font-size: 28px;
-  font-weight: 600;
+  margin-bottom: 12px;
 }
 
-.header p {
-  margin: 6px 0 0;
+.subtitle {
+  font-size: 15px;
+  color: #475569;
+  line-height: 1.6;
+  max-width: 420px;
+  margin: auto;
+}
+
+.note-label {
   color: #46C0C6;
-  font-size: 14px;
+  font-weight: 600;
 }
 
 input {
   width: 100%;
   padding: 14px;
   margin-bottom: 14px;
+
   border-radius: 8px;
   border: 1px solid #ddd;
+
   font-size: 15px;
 }
 
 input:focus {
   outline: none;
   border-color: #46C0C6;
-  box-shadow: 0 0 0 3px rgba(70,192,198,0.2);
+  box-shadow: 0 0 0 3px rgba(70,192,198,0.25);
 }
 
 button.main-btn {
   width: 100%;
   padding: 14px;
+
   border-radius: 8px;
   border: none;
+
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
+
   background: #2C0E8A;
   color: white;
+
   cursor: pointer;
   margin-top: 10px;
 }
 
 button.main-btn:hover {
-  background: #1f0863;
+  background: #1f0667;
 }
 
 .drug-list {
   margin-top: 5px;
   border-top: 1px solid #eee;
-  min-height: 10px;
 }
 
 .drug-item {
@@ -96,31 +120,35 @@ button.main-btn:hover {
 }
 
 .drug-item:hover {
-  background: #f8f9ff;
+  background: #eefcfc;
 }
 
 .pagination {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+
   margin-top: 15px;
   margin-bottom: 25px;
+
   font-size: 14px;
-  align-items: center;
 }
 
 .pagination button {
   padding: 6px 12px;
   font-size: 13px;
+
   border: none;
   border-radius: 6px;
+
   background: #46C0C6;
   color: white;
+
   cursor: pointer;
 }
 
 .pagination button:disabled {
   background: #ccc;
-  cursor: not-allowed;
 }
 
 .fade-enter {
@@ -148,10 +176,14 @@ button.main-btn:hover {
 .spinner {
   border: 4px solid #f3f3f3;
   border-top: 4px solid #2C0E8A;
+
   border-radius: 50%;
+
   width: 36px;
   height: 36px;
+
   animation: spin 1s linear infinite;
+
   margin: 30px auto;
 }
 
@@ -169,7 +201,7 @@ button.main-btn:hover {
 }
 
 .price {
-  font-size: 30px;
+  font-size: 32px;
   font-weight: 700;
   color: #2C0E8A;
   margin-top: 10px;
@@ -185,10 +217,21 @@ button.main-btn:hover {
 }
 
 @media (max-width: 480px) {
-  .container { margin: 40px auto; }
-  .header h1 { font-size: 18px; }
-  .price { font-size: 24px; }
+
+  .container {
+    margin: 40px auto;
+  }
+
+  .main-title {
+    font-size: 26px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
 }
+
 </style>
 </head>
 
@@ -196,122 +239,159 @@ button.main-btn:hover {
 
 <div class="container">
 
-  <div class="header">
-    <h1>Farmington Family Pharmacy</h1>
-    <p>Drug Pricing Tool</p>
-  </div>
+<div class="header">
 
-  <input id="drugName" placeholder="Search drug..." />
-  <input id="drugQty" type="number" placeholder="Quantity" />
-  <input id="daySupply" type="number" placeholder="Day Supply" />
+<h1 class="main-title">
+Clear Pricing. No Surprises.
+</h1>
 
-  <div id="searchResults" class="drug-list"></div>
-  <div id="pagination" class="pagination"></div>
+<p class="subtitle">
+Calculate the estimated cash price for your medications.
+<br><br>
+<span class="note-label">Note:</span>
+Some items are priced by each and some by pack size if unit of use.
+This may not result in an accurate price. Please call us if needed.
+</p>
 
-  <button class="main-btn" onclick="calculateUAC()">Calculate Price</button>
+</div>
 
-  <div id="results"></div>
+<input id="drugName" placeholder="Search drug..." />
+<input id="drugQty" type="number" placeholder="Quantity" />
+<input id="daySupply" type="number" placeholder="Day Supply" />
+
+<div id="searchResults" class="drug-list"></div>
+<div id="pagination" class="pagination"></div>
+
+<button class="main-btn" onclick="calculateUAC()">
+Calculate Price
+</button>
+
+<div id="results"></div>
 
 </div>
 
 <script>
+
 let debounceTimer;
+
 let selectedDrugId = null;
 let selectedDrugName = null;
+
 let allDrugs = [];
 let currentPage = 1;
+
 const pageSize = 5;
 
-function formatCurrency(value) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD"
+function formatCurrency(value){
+  return new Intl.NumberFormat("en-US",{
+    style:"currency",
+    currency:"USD"
   }).format(value);
 }
 
-document.getElementById("drugName").addEventListener("input", function () {
+document.getElementById("drugName").addEventListener("input",function(){
 
   selectedDrugId = null;
   selectedDrugName = null;
 
   clearTimeout(debounceTimer);
+
   const query = this.value;
 
-  if (query.length < 2) {
+  if(query.length < 2){
     document.getElementById("searchResults").innerHTML = "";
     document.getElementById("pagination").innerHTML = "";
     return;
   }
 
-  debounceTimer = setTimeout(() => {
+  debounceTimer = setTimeout(()=>{
+
     fetch(`/search?search=${encodeURIComponent(query)}`)
-      .then(res => res.json())
-      .then(data => {
+    .then(res=>res.json())
+    .then(data=>{
 
-        if (!Array.isArray(data)) return;
+      if(!Array.isArray(data)) return;
 
-        const seen = new Set();
+      const seen = new Set();
 
-        allDrugs = data
-          .filter(drug => {
-            if ((drug.controlledSchedule ?? 0) >= 2) return false;
-            if (drug.isOTC === true) return false;
-            return true;
-          })
-          .filter(drug => {
-            const key = `${drug.name}-${drug.dosageForm}-${drug.doseForm}`;
-            if (seen.has(key)) return false;
-            seen.add(key);
-            return true;
-          });
+      allDrugs = data
+      .filter(drug=>{
 
-        currentPage = 1;
-        renderPage();
+        if((drug.controlledSchedule ?? 0) >= 2) return false;
+
+        if(drug.isOTC === true) return false;
+
+        return true;
+
+      })
+      .filter(drug=>{
+
+        const key = `${drug.name}-${drug.dosageForm}-${drug.doseForm}`;
+
+        if(seen.has(key)) return false;
+
+        seen.add(key);
+
+        return true;
+
       });
-  }, 400);
+
+      currentPage = 1;
+      renderPage();
+
+    });
+
+  },400);
+
 });
 
-function renderPage() {
+function renderPage(){
 
   const resultsDiv = document.getElementById("searchResults");
   const paginationDiv = document.getElementById("pagination");
 
   const totalPages = Math.ceil(allDrugs.length / pageSize);
+
   const start = (currentPage - 1) * pageSize;
   const end = start + pageSize;
-  const pageItems = allDrugs.slice(start, end);
+
+  const pageItems = allDrugs.slice(start,end);
 
   resultsDiv.classList.add("fade-exit");
   resultsDiv.classList.add("fade-exit-active");
 
-  setTimeout(() => {
+  setTimeout(()=>{
 
     resultsDiv.innerHTML = "";
 
-    pageItems.forEach(drug => {
+    pageItems.forEach(drug=>{
+
       const item = document.createElement("div");
       item.className = "drug-item";
       item.textContent = drug.name;
 
-      item.onclick = () => {
+      item.onclick = ()=>{
         selectedDrugId = drug.id;
         selectedDrugName = drug.name;
+
         document.getElementById("drugName").value = drug.name;
+
         resultsDiv.innerHTML = "";
         paginationDiv.innerHTML = "";
       };
 
       resultsDiv.appendChild(item);
+
     });
 
     resultsDiv.classList.remove("fade-exit","fade-exit-active");
 
     resultsDiv.classList.add("fade-enter");
-    requestAnimationFrame(() => {
+    requestAnimationFrame(()=>{
       resultsDiv.classList.add("fade-enter-active");
     });
 
-    setTimeout(() => {
+    setTimeout(()=>{
       resultsDiv.classList.remove("fade-enter","fade-enter-active");
     },250);
 
@@ -319,39 +399,40 @@ function renderPage() {
 
   paginationDiv.innerHTML = "";
 
-  if (totalPages > 1) {
+  if(totalPages > 1){
+
     paginationDiv.innerHTML = `
-      <button onclick="changePage(-1)" ${currentPage === 1 ? "disabled" : ""}>Previous</button>
+      <button onclick="changePage(-1)" ${currentPage===1?"disabled":""}>Previous</button>
       <span>Page ${currentPage} of ${totalPages}</span>
-      <button onclick="changePage(1)" ${currentPage === totalPages ? "disabled" : ""}>Next</button>
+      <button onclick="changePage(1)" ${currentPage===totalPages?"disabled":""}>Next</button>
     `;
+
   }
+
 }
 
-function changePage(direction) {
+function changePage(direction){
   currentPage += direction;
   renderPage();
 }
 
-async function calculateUAC() {
+async function calculateUAC(){
 
   const qty = document.getElementById("drugQty").value;
   const days = document.getElementById("daySupply").value;
   const resultsDiv = document.getElementById("results");
 
-  if (!selectedDrugId) {
-    resultsDiv.innerHTML =
-      "<div class='error'>Please select a drug from the list.</div>";
+  if(!selectedDrugId){
+    resultsDiv.innerHTML = `<div class="error">Please select a drug from the list.</div>`;
     return;
   }
 
-  if (!qty || !days) {
-    resultsDiv.innerHTML =
-      "<div class='error'>Enter quantity and day supply.</div>";
+  if(!qty || !days){
+    resultsDiv.innerHTML = `<div class="error">Enter quantity and day supply.</div>`;
     return;
   }
 
-  resultsDiv.innerHTML = "<div class='spinner'></div>";
+  resultsDiv.innerHTML = `<div class="spinner"></div>`;
 
   const response = await fetch(
     `/calculate?drugId=${selectedDrugId}&drugQty=${qty}&daySupply=${days}`
@@ -359,9 +440,8 @@ async function calculateUAC() {
 
   const data = await response.json();
 
-  if (!response.ok || data.error) {
-    resultsDiv.innerHTML =
-      "<div class='error'>" + (data.error || "An error occurred.") + "</div>";
+  if(!response.ok || data.error){
+    resultsDiv.innerHTML = `<div class="error">${data.error || "An error occurred."}</div>`;
     return;
   }
 
@@ -374,7 +454,9 @@ async function calculateUAC() {
       <div class="price">${formattedPrice}</div>
     </div>
   `;
+
 }
+
 </script>
 
 </body>
