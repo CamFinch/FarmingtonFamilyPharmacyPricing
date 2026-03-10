@@ -8,223 +8,301 @@
 
 <style>
 
-* {
-  box-sizing: border-box;
+*{
+box-sizing:border-box;
 }
 
-body {
-  margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  color: #1e293b;
+body{
+margin:0;
+font-family:"Segoe UI",sans-serif;
+color:#1e293b;
 
-  background: transparent;
+background: transparent;
 
-
-  min-height: 100vh;
+min-height:100vh;
 }
 
-.container {
-  width: 100%;
-  max-width: 520px;
-  margin: 80px auto;
-  padding: 55px 32px 45px 32px;
+.container{
 
-  background: white;
-  border-radius: 14px;
+width:100%;
+max-width:520px;
 
-  border: 2px solid #2C0E8A;
+margin:80px auto;
 
-  box-shadow:
-    0 10px 25px rgba(0,0,0,0.06),
-    0 2px 6px rgba(0,0,0,0.04);
+padding:55px 32px 45px 32px;
+
+background:white;
+
+border-radius:14px;
+
+border:2px solid #2C0E8A;
+
+box-shadow:
+0 10px 25px rgba(0,0,0,0.06),
+0 2px 6px rgba(0,0,0,0.04);
+
 }
 
-.header {
-  text-align: center;
-  margin-bottom: 40px;
+.header{
+
+text-align:center;
+
+margin-bottom:30px;
+
 }
 
-.main-title {
-  font-size: 34px;
-  font-weight: 700;
-  color: #2C0E8A;
-  margin-bottom: 12px;
+.note-text{
+
+font-size:14px;
+
+color:#475569;
+
+line-height:1.6;
+
 }
 
-.subtitle {
-  font-size: 15px;
-  color: #475569;
-  line-height: 1.6;
-  max-width: 420px;
-  margin: auto;
+.note-label{
+
+color:#46C0C6;
+
+font-weight:600;
+
 }
 
-.note-label {
-  color: #46C0C6;
-  font-weight: 600;
+input{
+
+width:100%;
+
+padding:14px;
+
+margin-bottom:14px;
+
+border-radius:8px;
+
+border:1px solid #ddd;
+
+font-size:15px;
+
 }
 
-input {
-  width: 100%;
-  padding: 14px;
-  margin-bottom: 14px;
+input:focus{
 
-  border-radius: 8px;
-  border: 1px solid #ddd;
+outline:none;
 
-  font-size: 15px;
+border-color:#46C0C6;
+
+box-shadow:0 0 0 3px rgba(70,192,198,0.25);
+
 }
 
-input:focus {
-  outline: none;
-  border-color: #46C0C6;
-  box-shadow: 0 0 0 3px rgba(70,192,198,0.25);
+button.main-btn{
+
+width:100%;
+
+padding:14px;
+
+border-radius:8px;
+
+border:none;
+
+font-size:15px;
+
+font-weight:600;
+
+background:#2C0E8A;
+
+color:white;
+
+cursor:pointer;
+
+margin-top:10px;
+
 }
 
-button.main-btn {
-  width: 100%;
-  padding: 14px;
+button.main-btn:hover{
 
-  border-radius: 8px;
-  border: none;
+background:#1f0667;
 
-  font-size: 15px;
-  font-weight: 600;
-
-  background: #2C0E8A;
-  color: white;
-
-  cursor: pointer;
-  margin-top: 10px;
 }
 
-button.main-btn:hover {
-  background: #1f0667;
+.drug-list{
+
+margin-top:5px;
+
+border-top:1px solid #eee;
+
 }
 
-.drug-list {
-  margin-top: 5px;
-  border-top: 1px solid #eee;
+.drug-item{
+
+padding:12px;
+
+border-bottom:1px solid #f1f1f1;
+
+cursor:pointer;
+
+font-size:14px;
+
+transition:background 0.2s ease;
+
 }
 
-.drug-item {
-  padding: 12px;
-  border-bottom: 1px solid #f1f1f1;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background 0.2s ease;
+.drug-item:hover{
+
+background:#eefcfc;
+
 }
 
-.drug-item:hover {
-  background: #eefcfc;
+.pagination{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+margin-top:15px;
+
+margin-bottom:25px;
+
+font-size:14px;
+
 }
 
-.pagination {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.pagination button{
 
-  margin-top: 15px;
-  margin-bottom: 25px;
+padding:6px 12px;
 
-  font-size: 14px;
+font-size:13px;
+
+border:none;
+
+border-radius:6px;
+
+background:#46C0C6;
+
+color:white;
+
+cursor:pointer;
+
 }
 
-.pagination button {
-  padding: 6px 12px;
-  font-size: 13px;
+.pagination button:disabled{
 
-  border: none;
-  border-radius: 6px;
+background:#ccc;
 
-  background: #46C0C6;
-  color: white;
+cursor:not-allowed;
 
-  cursor: pointer;
 }
 
-.pagination button:disabled {
-  background: #ccc;
+.fade-enter{
+
+opacity:0;
+
+transform:translateY(8px);
+
 }
 
-.fade-enter {
-  opacity: 0;
-  transform: translateY(8px);
+.fade-enter-active{
+
+opacity:1;
+
+transform:translateY(0);
+
+transition:opacity 250ms ease, transform 250ms ease;
+
 }
 
-.fade-enter-active {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 250ms ease, transform 250ms ease;
+.fade-exit{
+
+opacity:1;
+
+transform:translateY(0);
+
 }
 
-.fade-exit {
-  opacity: 1;
-  transform: translateY(0);
+.fade-exit-active{
+
+opacity:0;
+
+transform:translateY(8px);
+
+transition:opacity 200ms ease, transform 200ms ease;
+
 }
 
-.fade-exit-active {
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 200ms ease, transform 200ms ease;
+.spinner{
+
+border:4px solid #f3f3f3;
+
+border-top:4px solid #2C0E8A;
+
+border-radius:50%;
+
+width:36px;
+
+height:36px;
+
+animation:spin 1s linear infinite;
+
+margin:30px auto;
+
 }
 
-.spinner {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #2C0E8A;
+@keyframes spin{
 
-  border-radius: 50%;
+0%{transform:rotate(0deg);}
+100%{transform:rotate(360deg);}
 
-  width: 36px;
-  height: 36px;
-
-  animation: spin 1s linear infinite;
-
-  margin: 30px auto;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.result-card{
+
+margin-top:25px;
+
+padding:22px;
+
+border-radius:10px;
+
+background:#f9fafc;
+
+text-align:center;
+
 }
 
-.result-card {
-  margin-top: 25px;
-  padding: 22px;
-  border-radius: 10px;
-  background: #f9fafc;
-  text-align: center;
+.price{
+
+font-size:32px;
+
+font-weight:700;
+
+color:#2C0E8A;
+
+margin-top:10px;
+
 }
 
-.price {
-  font-size: 32px;
-  font-weight: 700;
-  color: #2C0E8A;
-  margin-top: 10px;
+.error{
+
+color:#b91c1c;
+
+background:#fee2e2;
+
+padding:14px;
+
+border-radius:8px;
+
+margin-top:20px;
+
+font-size:14px;
+
 }
 
-.error {
-  color: #b91c1c;
-  background: #fee2e2;
-  padding: 14px;
-  border-radius: 8px;
-  margin-top: 20px;
-  font-size: 14px;
+@media(max-width:480px){
+
+.container{
+margin:40px auto;
 }
-
-@media (max-width: 480px) {
-
-  .container {
-    margin: 40px auto;
-  }
-
-  .main-title {
-    font-size: 26px;
-  }
-
-  .subtitle {
-    font-size: 14px;
-  }
 
 }
 
@@ -237,13 +315,7 @@ button.main-btn:hover {
 
 <div class="header">
 
-<h1 class="main-title">
-Clear Pricing. No Surprises.
-</h1>
-
-<p class="subtitle">
-Calculate the estimated cash price for your medications.
-<br><br>
+<p class="note-text">
 <span class="note-label">Note:</span>
 Some items are priced by each and some by pack size if unit of use.
 This may not result in an accurate price. Please call us if needed.
@@ -256,6 +328,7 @@ This may not result in an accurate price. Please call us if needed.
 <input id="daySupply" type="number" placeholder="Day Supply" />
 
 <div id="searchResults" class="drug-list"></div>
+
 <div id="pagination" class="pagination"></div>
 
 <button class="main-btn" onclick="calculateUAC()">
@@ -270,186 +343,206 @@ Calculate Price
 
 let debounceTimer;
 
-let selectedDrugId = null;
-let selectedDrugName = null;
+let selectedDrugId=null;
+let selectedDrugName=null;
 
-let allDrugs = [];
-let currentPage = 1;
+let allDrugs=[];
+let currentPage=1;
 
-const pageSize = 5;
+const pageSize=5;
 
 function formatCurrency(value){
-  return new Intl.NumberFormat("en-US",{
-    style:"currency",
-    currency:"USD"
-  }).format(value);
+
+return new Intl.NumberFormat("en-US",{
+style:"currency",
+currency:"USD"
+}).format(value);
+
 }
 
 document.getElementById("drugName").addEventListener("input",function(){
 
-  selectedDrugId = null;
-  selectedDrugName = null;
+selectedDrugId=null;
+selectedDrugName=null;
 
-  clearTimeout(debounceTimer);
+clearTimeout(debounceTimer);
 
-  const query = this.value;
+const query=this.value;
 
-  if(query.length < 2){
-    document.getElementById("searchResults").innerHTML = "";
-    document.getElementById("pagination").innerHTML = "";
-    return;
-  }
+if(query.length<2){
 
-  debounceTimer = setTimeout(()=>{
+document.getElementById("searchResults").innerHTML="";
+document.getElementById("pagination").innerHTML="";
+return;
 
-    fetch(`/search?search=${encodeURIComponent(query)}`)
-    .then(res=>res.json())
-    .then(data=>{
+}
 
-      if(!Array.isArray(data)) return;
+debounceTimer=setTimeout(()=>{
 
-      const seen = new Set();
+fetch(`/search?search=${encodeURIComponent(query)}`)
+.then(res=>res.json())
+.then(data=>{
 
-      allDrugs = data
-      .filter(drug=>{
+if(!Array.isArray(data))return;
 
-        if((drug.controlledSchedule ?? 0) >= 2) return false;
+const seen=new Set();
 
-        if(drug.isOTC === true) return false;
+allDrugs=data
+.filter(drug=>{
 
-        return true;
+if((drug.controlledSchedule??0)>=2)return false;
 
-      })
-      .filter(drug=>{
+if(drug.isOTC===true)return false;
 
-        const key = `${drug.name}-${drug.dosageForm}-${drug.doseForm}`;
+return true;
 
-        if(seen.has(key)) return false;
+})
+.filter(drug=>{
 
-        seen.add(key);
+const key=`${drug.name}-${drug.dosageForm}-${drug.doseForm}`;
 
-        return true;
+if(seen.has(key))return false;
 
-      });
+seen.add(key);
 
-      currentPage = 1;
-      renderPage();
+return true;
 
-    });
+});
 
-  },400);
+currentPage=1;
+
+renderPage();
+
+});
+
+},400);
 
 });
 
 function renderPage(){
 
-  const resultsDiv = document.getElementById("searchResults");
-  const paginationDiv = document.getElementById("pagination");
+const resultsDiv=document.getElementById("searchResults");
+const paginationDiv=document.getElementById("pagination");
 
-  const totalPages = Math.ceil(allDrugs.length / pageSize);
+const totalPages=Math.ceil(allDrugs.length/pageSize);
 
-  const start = (currentPage - 1) * pageSize;
-  const end = start + pageSize;
+const start=(currentPage-1)*pageSize;
+const end=start+pageSize;
 
-  const pageItems = allDrugs.slice(start,end);
+const pageItems=allDrugs.slice(start,end);
 
-  resultsDiv.classList.add("fade-exit");
-  resultsDiv.classList.add("fade-exit-active");
+resultsDiv.classList.add("fade-exit");
+resultsDiv.classList.add("fade-exit-active");
 
-  setTimeout(()=>{
+setTimeout(()=>{
 
-    resultsDiv.innerHTML = "";
+resultsDiv.innerHTML="";
 
-    pageItems.forEach(drug=>{
+pageItems.forEach(drug=>{
 
-      const item = document.createElement("div");
-      item.className = "drug-item";
-      item.textContent = drug.name;
+const item=document.createElement("div");
 
-      item.onclick = ()=>{
-        selectedDrugId = drug.id;
-        selectedDrugName = drug.name;
+item.className="drug-item";
 
-        document.getElementById("drugName").value = drug.name;
+item.textContent=drug.name;
 
-        resultsDiv.innerHTML = "";
-        paginationDiv.innerHTML = "";
-      };
+item.onclick=()=>{
 
-      resultsDiv.appendChild(item);
+selectedDrugId=drug.id;
+selectedDrugName=drug.name;
 
-    });
+document.getElementById("drugName").value=drug.name;
 
-    resultsDiv.classList.remove("fade-exit","fade-exit-active");
+resultsDiv.innerHTML="";
+paginationDiv.innerHTML="";
 
-    resultsDiv.classList.add("fade-enter");
-    requestAnimationFrame(()=>{
-      resultsDiv.classList.add("fade-enter-active");
-    });
+};
 
-    setTimeout(()=>{
-      resultsDiv.classList.remove("fade-enter","fade-enter-active");
-    },250);
+resultsDiv.appendChild(item);
 
-  },200);
+});
 
-  paginationDiv.innerHTML = "";
+resultsDiv.classList.remove("fade-exit","fade-exit-active");
 
-  if(totalPages > 1){
+resultsDiv.classList.add("fade-enter");
 
-    paginationDiv.innerHTML = `
-      <button onclick="changePage(-1)" ${currentPage===1?"disabled":""}>Previous</button>
-      <span>Page ${currentPage} of ${totalPages}</span>
-      <button onclick="changePage(1)" ${currentPage===totalPages?"disabled":""}>Next</button>
-    `;
+requestAnimationFrame(()=>{
+resultsDiv.classList.add("fade-enter-active");
+});
 
-  }
+setTimeout(()=>{
+resultsDiv.classList.remove("fade-enter","fade-enter-active");
+},250);
+
+},200);
+
+paginationDiv.innerHTML="";
+
+if(totalPages>1){
+
+paginationDiv.innerHTML=`
+<button onclick="changePage(-1)" ${currentPage===1?"disabled":""}>Previous</button>
+<span>Page ${currentPage} of ${totalPages}</span>
+<button onclick="changePage(1)" ${currentPage===totalPages?"disabled":""}>Next</button>
+`;
+
+}
 
 }
 
 function changePage(direction){
-  currentPage += direction;
-  renderPage();
+
+currentPage+=direction;
+
+renderPage();
+
 }
 
 async function calculateUAC(){
 
-  const qty = document.getElementById("drugQty").value;
-  const days = document.getElementById("daySupply").value;
-  const resultsDiv = document.getElementById("results");
+const qty=document.getElementById("drugQty").value;
+const days=document.getElementById("daySupply").value;
 
-  if(!selectedDrugId){
-    resultsDiv.innerHTML = `<div class="error">Please select a drug from the list.</div>`;
-    return;
-  }
+const resultsDiv=document.getElementById("results");
 
-  if(!qty || !days){
-    resultsDiv.innerHTML = `<div class="error">Enter quantity and day supply.</div>`;
-    return;
-  }
+if(!selectedDrugId){
 
-  resultsDiv.innerHTML = `<div class="spinner"></div>`;
+resultsDiv.innerHTML=`<div class="error">Please select a drug from the list.</div>`;
+return;
 
-  const response = await fetch(
-    `/calculate?drugId=${selectedDrugId}&drugQty=${qty}&daySupply=${days}`
-  );
+}
 
-  const data = await response.json();
+if(!qty||!days){
 
-  if(!response.ok || data.error){
-    resultsDiv.innerHTML = `<div class="error">${data.error || "An error occurred."}</div>`;
-    return;
-  }
+resultsDiv.innerHTML=`<div class="error">Enter quantity and day supply.</div>`;
+return;
 
-  const formattedPrice = formatCurrency(data);
+}
 
-  resultsDiv.innerHTML = `
-    <div class="result-card">
-      <h3>${selectedDrugName}</h3>
-      <p>Quantity: ${qty} | Day Supply: ${days}</p>
-      <div class="price">${formattedPrice}</div>
-    </div>
-  `;
+resultsDiv.innerHTML=`<div class="spinner"></div>`;
+
+const response=await fetch(
+`/calculate?drugId=${selectedDrugId}&drugQty=${qty}&daySupply=${days}`
+);
+
+const data=await response.json();
+
+if(!response.ok||data.error){
+
+resultsDiv.innerHTML=`<div class="error">${data.error||"An error occurred."}</div>`;
+return;
+
+}
+
+const formattedPrice=formatCurrency(data);
+
+resultsDiv.innerHTML=`
+<div class="result-card">
+<h3>${selectedDrugName}</h3>
+<p>Quantity: ${qty} | Day Supply: ${days}</p>
+<div class="price">${formattedPrice}</div>
+</div>
+`;
 
 }
 
