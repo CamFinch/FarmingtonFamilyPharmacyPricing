@@ -8,9 +8,7 @@
 
 <style>
 
-*{
-box-sizing:border-box;
-}
+*{ box-sizing:border-box; }
 
 body{
 margin:0;
@@ -23,287 +21,193 @@ min-height:100vh;
 }
 
 .container{
-
 width:100%;
 max-width:520px;
-
 margin:80px auto;
-
 padding:55px 32px 45px 32px;
 
 background:white;
-
 border-radius:14px;
-
 border:2px solid #2C0E8A;
 
 box-shadow:
 0 10px 25px rgba(0,0,0,0.06),
 0 2px 6px rgba(0,0,0,0.04);
-
 }
 
+/* HEADER */
 .header{
-
 text-align:center;
-
-margin-bottom:30px;
-
+margin-bottom:35px;
 }
 
-.note-text{
-
-font-size:14px;
-
-color:#475569;
-
-line-height:1.6;
-
-}
-
-.note-label{
-
+.main-title{
+font-size:32px;
+font-weight:700;
 color:#46C0C6;
-
-font-weight:600;
-
 }
 
+/* INPUTS */
 input{
-
 width:100%;
-
 padding:14px;
-
 margin-bottom:14px;
 
 border-radius:8px;
-
 border:1px solid #ddd;
 
 font-size:15px;
-
 }
 
 input:focus{
-
 outline:none;
-
 border-color:#46C0C6;
-
 box-shadow:0 0 0 3px rgba(70,192,198,0.25);
-
 }
 
+/* BUTTON */
 button.main-btn{
-
 width:100%;
-
 padding:14px;
 
 border-radius:8px;
-
 border:none;
 
 font-size:15px;
-
 font-weight:600;
 
 background:#2C0E8A;
-
 color:white;
 
 cursor:pointer;
-
 margin-top:10px;
-
 }
 
 button.main-btn:hover{
-
 background:#1f0667;
-
 }
 
+/* DRUG LIST */
 .drug-list{
-
 margin-top:5px;
-
 border-top:1px solid #eee;
-
 }
 
 .drug-item{
-
 padding:12px;
-
 border-bottom:1px solid #f1f1f1;
-
 cursor:pointer;
-
 font-size:14px;
-
 transition:background 0.2s ease;
-
 }
 
 .drug-item:hover{
-
 background:#eefcfc;
-
 }
 
+/* PAGINATION */
 .pagination{
-
 display:flex;
-
 justify-content:space-between;
-
 align-items:center;
 
 margin-top:15px;
-
 margin-bottom:25px;
 
 font-size:14px;
-
 }
 
 .pagination button{
-
 padding:6px 12px;
-
 font-size:13px;
 
 border:none;
-
 border-radius:6px;
 
 background:#46C0C6;
-
 color:white;
 
 cursor:pointer;
-
 }
 
 .pagination button:disabled{
-
 background:#ccc;
-
 cursor:not-allowed;
-
 }
 
+/* ANIMATION */
 .fade-enter{
-
 opacity:0;
-
 transform:translateY(8px);
-
 }
 
 .fade-enter-active{
-
 opacity:1;
-
 transform:translateY(0);
-
 transition:opacity 250ms ease, transform 250ms ease;
-
 }
 
 .fade-exit{
-
 opacity:1;
-
 transform:translateY(0);
-
 }
 
 .fade-exit-active{
-
 opacity:0;
-
 transform:translateY(8px);
-
 transition:opacity 200ms ease, transform 200ms ease;
-
 }
 
+/* SPINNER */
 .spinner{
-
 border:4px solid #f3f3f3;
-
 border-top:4px solid #2C0E8A;
-
 border-radius:50%;
-
 width:36px;
-
 height:36px;
-
 animation:spin 1s linear infinite;
-
 margin:30px auto;
-
 }
 
 @keyframes spin{
-
 0%{transform:rotate(0deg);}
 100%{transform:rotate(360deg);}
-
 }
 
+/* RESULT */
 .result-card{
-
 margin-top:25px;
-
 padding:22px;
-
 border-radius:10px;
-
 background:#f9fafc;
-
 text-align:center;
-
 }
 
 .price{
-
 font-size:32px;
-
 font-weight:700;
-
 color:#2C0E8A;
-
 margin-top:10px;
-
 }
 
 .error{
-
 color:#b91c1c;
-
 background:#fee2e2;
-
 padding:14px;
-
 border-radius:8px;
-
 margin-top:20px;
-
 font-size:14px;
-
 }
 
+/* MOBILE */
 @media(max-width:480px){
-
 .container{
 margin:40px auto;
 }
 
+.main-title{
+font-size:24px;
+}
 }
 
 </style>
@@ -314,13 +218,7 @@ margin:40px auto;
 <div class="container">
 
 <div class="header">
-
-<p class="note-text">
-<span class="note-label">Note:</span>
-Some items are priced by each and some by pack size if unit of use.
-This may not result in an accurate price. Please call us if needed.
-</p>
-
+<h1 class="main-title">Drug Pricing Tool</h1>
 </div>
 
 <input id="drugName" placeholder="Search drug..." />
@@ -328,12 +226,9 @@ This may not result in an accurate price. Please call us if needed.
 <input id="daySupply" type="number" placeholder="Day Supply" />
 
 <div id="searchResults" class="drug-list"></div>
-
 <div id="pagination" class="pagination"></div>
 
-<button class="main-btn" onclick="calculateUAC()">
-Calculate Price
-</button>
+<button class="main-btn" onclick="calculateUAC()">Calculate Price</button>
 
 <div id="results"></div>
 
@@ -342,7 +237,6 @@ Calculate Price
 <script>
 
 let debounceTimer;
-
 let selectedDrugId=null;
 let selectedDrugName=null;
 
@@ -352,12 +246,7 @@ let currentPage=1;
 const pageSize=5;
 
 function formatCurrency(value){
-
-return new Intl.NumberFormat("en-US",{
-style:"currency",
-currency:"USD"
-}).format(value);
-
+return new Intl.NumberFormat("en-US",{style:"currency",currency:"USD"}).format(value);
 }
 
 document.getElementById("drugName").addEventListener("input",function(){
@@ -370,11 +259,9 @@ clearTimeout(debounceTimer);
 const query=this.value;
 
 if(query.length<2){
-
 document.getElementById("searchResults").innerHTML="";
 document.getElementById("pagination").innerHTML="";
 return;
-
 }
 
 debounceTimer=setTimeout(()=>{
@@ -389,28 +276,18 @@ const seen=new Set();
 
 allDrugs=data
 .filter(drug=>{
-
 if((drug.controlledSchedule??0)>=2)return false;
-
 if(drug.isOTC===true)return false;
-
 return true;
-
 })
 .filter(drug=>{
-
 const key=`${drug.name}-${drug.dosageForm}-${drug.doseForm}`;
-
 if(seen.has(key))return false;
-
 seen.add(key);
-
 return true;
-
 });
 
 currentPage=1;
-
 renderPage();
 
 });
@@ -441,13 +318,10 @@ resultsDiv.innerHTML="";
 pageItems.forEach(drug=>{
 
 const item=document.createElement("div");
-
 item.className="drug-item";
-
 item.textContent=drug.name;
 
 item.onclick=()=>{
-
 selectedDrugId=drug.id;
 selectedDrugName=drug.name;
 
@@ -455,7 +329,6 @@ document.getElementById("drugName").value=drug.name;
 
 resultsDiv.innerHTML="";
 paginationDiv.innerHTML="";
-
 };
 
 resultsDiv.appendChild(item);
@@ -465,7 +338,6 @@ resultsDiv.appendChild(item);
 resultsDiv.classList.remove("fade-exit","fade-exit-active");
 
 resultsDiv.classList.add("fade-enter");
-
 requestAnimationFrame(()=>{
 resultsDiv.classList.add("fade-enter-active");
 });
@@ -479,23 +351,18 @@ resultsDiv.classList.remove("fade-enter","fade-enter-active");
 paginationDiv.innerHTML="";
 
 if(totalPages>1){
-
 paginationDiv.innerHTML=`
 <button onclick="changePage(-1)" ${currentPage===1?"disabled":""}>Previous</button>
 <span>Page ${currentPage} of ${totalPages}</span>
 <button onclick="changePage(1)" ${currentPage===totalPages?"disabled":""}>Next</button>
 `;
-
 }
 
 }
 
 function changePage(direction){
-
 currentPage+=direction;
-
 renderPage();
-
 }
 
 async function calculateUAC(){
@@ -506,32 +373,23 @@ const days=document.getElementById("daySupply").value;
 const resultsDiv=document.getElementById("results");
 
 if(!selectedDrugId){
-
 resultsDiv.innerHTML=`<div class="error">Please select a drug from the list.</div>`;
 return;
-
 }
 
 if(!qty||!days){
-
 resultsDiv.innerHTML=`<div class="error">Enter quantity and day supply.</div>`;
 return;
-
 }
 
 resultsDiv.innerHTML=`<div class="spinner"></div>`;
 
-const response=await fetch(
-`/calculate?drugId=${selectedDrugId}&drugQty=${qty}&daySupply=${days}`
-);
-
+const response=await fetch(`/calculate?drugId=${selectedDrugId}&drugQty=${qty}&daySupply=${days}`);
 const data=await response.json();
 
 if(!response.ok||data.error){
-
 resultsDiv.innerHTML=`<div class="error">${data.error||"An error occurred."}</div>`;
 return;
-
 }
 
 const formattedPrice=formatCurrency(data);
